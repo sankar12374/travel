@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Budget Planner</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+        .hero-section {
+            background-image: url('your-hero-image.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            position: relative;
+            color: #fff;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero-overlay h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .budget-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: -100px;
+            z-index: 1000;
+            position: relative;
+        }
+        .option-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option-card:hover, .option-card.active {
+            border-color: #007bff;
+            background-color: #e9f5ff;
+        }
+        .option-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        .result-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .result-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .result-section p {
+            font-size: 1.2rem;
+        }
+        footer {
+            background-color: #343a40;
+            color: #adb5bd;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+        footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">TripPlanner</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Plan Trip</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <div>
+                <h1>Plan Your Dream Trip</h1>
+                <p>Customize your journey and get the best budget estimates instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budget Planning Form -->
+    <div class="container">
+        <div class="budget-form">
+            <form id="tripForm">
+                <div class="row g-4">
+                    <!-- From Location -->
+                    <div class="col-md-6">
+                        <label for="fromLocation" class="form-label">From</label>
+                        <input type="text" class="form-control" id="fromLocation" placeholder="Enter starting location" required>
+                    </div>
+                    <!-- To Location -->
+                    <div class="col-md-6">
+                        <label for="toLocation" class="form-label">To</label>
+                        <input type="text" class="form-control" id="toLocation" placeholder="Enter destination" required>
+                    </div>
+                    <!-- Number of Days -->
+                    <div class="col-md-6">
+                        <label for="tripDays" class="form-label">Number of Days</label>
+                        <input type="number" class="form-control" id="tripDays" placeholder="Enter number of days" min="1" required>
+                    </div>
+                    <!-- Transportation Options -->
+                    <div class="col-md-6">
+                        <label class="form-label">Transportation</label>
+                        <div class="d-flex justify-content-between">
+                            <div class="option-card" data-transport="flight" data-cost="200">
+                                <img src="flight.jpeg" alt="Flight">
+                                <h5>Flight</h5>
+                                <p>Avg Cost: $200</p>
+                            </div>
+                            <div class="option-card" data-transport="train" data-cost="100">
+                                <img src="train'.jpeg" alt="Train">
+                                <h5>Train</h5>
+                                <p>Avg Cost: $100</p>
+                            </div>
+                            <div class="option-card" data-transport="bus" data-cost="50">
+                                <img src="bike.jpeg" alt="Bus">
+                                <h5>Bus</h5>
+                                <p>Avg Cost: $50</p>
+                            </div>
+                            <div class="option-card" data-transport="car" data-cost="150">
+                                <img src="car.jpeg" alt="Car">
+                                <h5>Car Rental</h5>
+                                <p>Avg Cost: $150</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accommodation Options -->
+                    <div class="col-md-12">
+                        <label class="form-label">Accommodation</label>
+                        <div class="d-flex justify-content-between">
+                            <div class="option-card" data-hotel="luxury" data-cost="300">
+                                <img src="hotel1.jpg" alt="Luxury Hotel">
+                                <h5>Luxury</h5>
+                                <p>Per Night: $300</p>
+                            </div>
+                            <div class="option-card" data-hotel="standard" data-cost="150">
+                                <img src="hotel2.jpeg" alt="Standard Hotel">
+                                <h5>Standard</h5>
+                                <p>Per Night: $150</p>
+                            </div>
+                            <div class="option-card" data-hotel="budget" data-cost="75">
+                                <img src="hote13.jpeg" alt="Budget Hotel">
+                                <h5>Budget</h5>
+                                <p>Per Night: $75</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Calculate Button -->
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate Budget</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Result Section -->
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h2>Estimated Trip Budget</h2>
+                <p><strong>From:</strong> <span id="resultFrom"></span></p>
+                <p><strong>To:</strong> <span id="resultTo"></span></p>
+                <p><strong>Transportation:</strong> <span id="resultTransport"></span></p>
+                <p><strong>Accommodation:</strong> <span id="resultHotel"></span></p>
+                <p><strong>Number of Days:</strong> <span id="resultDays"></span></p>
+                <h3>Total Estimated Cost: $<span id="resultCost"></span></h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2024 TripPlanner. All Rights Reserved.</p>
+            <p>Follow us on 
+                <a href="#">Facebook</a>, 
+                <a href="#">Twitter</a>, 
+                <a href="#">Instagram</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Variables to store selected options
+        let selectedTransport = null;
+        let selectedHotel = null;
+
+        // Transport Option Selection
+        const transportOptions = document.querySelectorAll('.option-card[data-transport]');
+        transportOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                transportOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                selectedTransport = {
+                    type: option.getAttribute('data-transport'),
+                    cost: parseInt(option.getAttribute('data-cost'))
+                };
+            });
+        });
+
+        // Hotel Option Selection
+        const hotelOptions = document.querySelectorAll('.option-card[data-hotel]');
+        hotelOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                hotelOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                selectedHotel = {
+                    type: option.getAttribute('data-hotel'),
+                    cost: parseInt(option.getAttribute('data-cost'))
+                };
+            });
+        });
+
+        // Form Submission and Budget Calculation
+        const tripForm = document.getElementById('tripForm');
+        tripForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fromLocation = document.getElementById('fromLocation').value;
+            const toLocation = document.getElementById('toLocation').value;
+            const tripDays = parseInt(document.getElementById('tripDays').value);
+
+            if (!selectedTransport || !selectedHotel) {
+                alert('Please select both transportation and accommodation options.');
+                return;
+            }
+
+            const totalTransportCost = selectedTransport.cost;
+            const totalHotelCost = selectedHotel.cost * tripDays;
+            const totalCost = totalTransportCost + totalHotelCost;
+
+            document.getElementById('resultFrom').innerText = fromLocation;
+            document.getElementById('resultTo').innerText = toLocation;
+            document.getElementById('resultTransport').innerText = capitalizeFirstLetter(selectedTransport.type) + ` ($${selectedTransport.cost})`;
+            document.getElementById('resultHotel').innerText = capitalizeFirstLetter(selectedHotel.type) + ` ($${selectedHotel.cost}/night)`;
+            document.getElementById('resultDays').innerText = tripDays;
+            document.getElementById('resultCost').innerText = totalCost;
+
+            document.getElementById('resultSection').style.display = 'block';
+        });
+
+        // Helper function to capitalize first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </script>
+</body>
+</html>
